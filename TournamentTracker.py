@@ -20,23 +20,25 @@ def signUp():
         else:
             validInput = 1
             participantList[int(slot)-1] = name
-'''
-function cancelSignUp()
-    print signUpHeader
+
+def cancelSignUp():
+    print("Participant Cancellation\n========================")
     validInput = 0
 
-    while validInput == 0
-        slot = input slot of player to remove
-        name = input name of player to remove
+    while validInput == 0:
+        slot = input("Starting slot: ")
+        name = input("Participant name: ")
 
-        if participantList[slot-1] != name
-            print "Error, {name} is not in that slot."
-        else
+        if (not slot.isnumeric()) or int(slot) > numParticipants:
+            print(f"Invalid input, slot must be a number in range [1-{numParticipants}]")
+        elif participantList[int(slot)-1] != name:
+            print(f"Error, {name} is not in that slot.")
+        else:
             validInput = 1
-            participantList[slot-1] = 'None'
-            print "Success, {name} has been removed from slot #{slot}"
-
-function viewParticipants()
+            participantList[int(slot)-1] = 'None'
+            print(f"Success, {name} has been removed from slot #{slot}")
+'''
+def viewParticipants():
     print participantHeader
     validInput = 0
 
@@ -49,6 +51,9 @@ function viewParticipants()
     
     print "Starting Slot: Participant"
 
+    if numParticipants < 11:
+        for i in range(0, slot):
+            print(f"{i+1}: {participantList[i]}")
     if slot < 6
         for i in range(0, slot)
             print "{i+1}: {participantList[i]}"
@@ -107,33 +112,36 @@ for i in range(0, numParticipants):             #populate participant list
 
 print(f"There are {numParticipants} slots available")
 
-signUp()
-signUp()
-signUp()
-
-print(f"Here's the list: {participantList}")
-
-'''
-
-
-while exitVar == 0   
+#Main program loop
+while exitVar == 0:   
     menuInput = 0
 
-    #main menu
-    print mainMenu
-    menuInput = get input for menu
-
-    if menuInput == 1
-        signUp()
-    else if menuInput == 2
-        cancelSignUp()
-    else if menuInput == 3
-        viewParticipants()
-    else if menuInput == 4
-        saveChanges()
-    else if menuInput == 5
-        exit()
-
-print "Goodbye!"
+    print("""Participant Menu
+    ================
+    1. Sign Up
+    2. Cancel Sign Up
+    3. View Participants
+    4. Save Changes
+    5. Exit
+    """)
+    menuInput = input("What do you want to do? Enter [1-5] ")
     
-'''
+    if menuInput.isnumeric():
+        menuInput = int(menuInput)
+    else:
+        print("Invalid input.")
+
+    if menuInput == 1:
+        signUp()
+    elif menuInput == 2:
+        cancelSignUp()
+    #elif menuInput == 3:
+        #viewParticipants()
+    #elif menuInput == 4:
+        #saveChanges()
+    elif menuInput == 5:
+        #exit()
+        exitVar = 1
+
+print("Goodbye!")
+    
