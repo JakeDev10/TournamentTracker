@@ -1,8 +1,9 @@
 '''
-declare participantList
+declare participantList as empty list
+exitVar = 0
 
 function signUp()
-    print menu
+    print signUpHeader
     validInput = 0
 
     name = input participant name
@@ -10,32 +11,97 @@ function signUp()
     while validInput == 0
         slot = input desired starting slot [1-numParticipants]
 
-        if not slot.isnumeric()
+        if slot is not numeric                          #isnumeric()
             print "Invalid input, please enter a number"
         else if participantList[slot-1] != 'None'
-            print "Slot # {slot} is taken, try another"
+            print "Slot #{slot} is taken, try another"
         else
             validInput = 1
             participantList[slot-1] = name
-            
-
-
 
 function cancelSignUp()
-    print signUpMenu
+    print signUpHeader
+    validInput = 0
 
+    while validInput == 0
+        slot = input slot of player to remove
+        name = input name of player to remove
+
+        if participantList[slot-1] != name
+            print "Error, {name} is not in that slot."
+        else
+            validInput = 1
+            participantList[slot-1] = 'None'
+            print "Success, {name} has been removed from slot #{slot}"
 
 function viewParticipants()
+    print participantHeader
+    validInput = 0
+
+    while validInput = 0
+        slot = input slot to view
+        if slot is not numeric
+            print "Error, please enter a number for slot"
+        else
+            validInput = 1
+    
+    print "Starting Slot: Participant"
+
+    if slot < 6
+        for i in range(0, slot)
+            print "{i+1}: {participantList[i]}"
+    else if slot > numParticipants - 5
+        for i in range(slot-6, numParticipants)
+            print "{i+1}: {participantList[i]}"
+    else
+        for i in range(slot-6, slot+4)
+            print "{i+1}: {participantList[i]}"
+
 
 function saveChanges()
+    print saveChangeHeader
+    answer = ''
+    validInput = 0
+
+    while validInput = 0
+        answer = input "Save your changes to csv? [y/n]"
+
+        if answer = 'y' or 'n'
+            validInput = 1
+        else
+            print "Invalid answer, please try again."
+    
+    if answer = 'y'
+        save participantList to csv
+        print "Your changes were saved."
+    else
+        print "Your changes were not saved."
 
 function exit()
+    print exitHeader
+    answer = ''
+    validInput = 0
+    global exitVar
+
+    while validInput = 0
+        answer = input "Are you sure you want to exit? [y/n]"
+
+        if answer = 'y' or 'n'
+            validInput = 1
+        else
+            print "Invalid answer, please try again."
+
+    if answer = 'y'
+        exitVar = 1
+
 
 #start up
-print startupMenu
+print startupHeader
 numParticipants = input number of participants
 for i in 0-participants             #populate participant list
     participantList.add('None')
+
+print "There are {numParticipants} slots available"
 
 
 
@@ -56,5 +122,7 @@ while exitVar == 0
         saveChanges()
     else if menuInput == 5
         exit()
+
+print "Goodbye!"
     
 '''
